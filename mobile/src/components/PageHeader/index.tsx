@@ -10,10 +10,14 @@ import { useNavigation } from "@react-navigation/native";
 
 interface PageHeaderProps {
   title: string;
-  headerRight?: ReactNode
+  headerRight?: ReactNode;
 }
 
-const PageHeader: React.FC<PageHeaderProps> = ({ title, children, headerRight }) => {
+const PageHeader: React.FC<PageHeaderProps> = ({
+  title,
+  children,
+  headerRight,
+}) => {
   const { navigate } = useNavigation();
 
   function handleGoBack() {

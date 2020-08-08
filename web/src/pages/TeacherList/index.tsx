@@ -9,70 +9,74 @@ import api from "../../services/api";
 import "./styles.css";
 
 function TeacherList() {
-  const [teachers, setTeachers] = useState([])
-  const [subject, setSubject] = useState('')
-  const [week_day, setWeekDay] = useState('')
-  const [time, setTime] = useState('')
+  const [teachers, setTeachers] = useState([]);
+  const [subject, setSubject] = useState("");
+  const [week_day, setWeekDay] = useState("");
+  const [time, setTime] = useState("");
 
   async function searchTeachers(e: FormEvent) {
-    e.preventDefault()
-    
-    const response = await api.get('classes', {
+    e.preventDefault();
+
+    const response = await api.get("classes", {
       params: {
         subject,
         week_day,
         time,
-      }
-    })
+      },
+    });
 
-    setTeachers(response.data)
+    setTeachers(response.data);
   }
 
   return (
     <div id="page-teacher-list" className="container">
       <PageHeader title="Estes são os proffys disponíveis.">
         <form id="search-teachers" onSubmit={searchTeachers}>
-          <Select 
-            name="subject" 
+          <Select
+            name="subject"
             label="Matéria"
             value={subject}
-            onChange={e => { setSubject(e.target.value) }}
+            onChange={(e) => {
+              setSubject(e.target.value);
+            }}
             options={[
-              { value: 'Artes', label:'Artes' },
-              { value: 'Biologia', label:'Biologia' },
-              { value: 'Ciências', label:'Ciências' },
-              { value: 'Educação física', label:'Educação física' },
-              { value: 'Geografia', label:'Geografia' },
-              { value: 'História', label:'História' },
-              { value: 'Matemática', label:'Matemática' },
-              { value: 'Português', label:'Português' },
-              { value: 'Química', label:'Química' },
-            ]} 
+              { value: "Artes", label: "Artes" },
+              { value: "Biologia", label: "Biologia" },
+              { value: "Ciências", label: "Ciências" },
+              { value: "Educação física", label: "Educação física" },
+              { value: "Geografia", label: "Geografia" },
+              { value: "História", label: "História" },
+              { value: "Matemática", label: "Matemática" },
+              { value: "Português", label: "Português" },
+              { value: "Química", label: "Química" },
+            ]}
           />
-          <Select 
-            name="week_day" 
+          <Select
+            name="week_day"
             label="Dia da semana"
             value={week_day}
-            onChange={e => { setWeekDay(e.target.value) }}
+            onChange={(e) => {
+              setWeekDay(e.target.value);
+            }}
             options={[
-              { value: '0', label:'Domingo' },
-              { value: '1', label:'Segunda-feira' },
-              { value: '2', label:'Terça-feira' },
-              { value: '3',label:'Quarta-feira' },
-              { value: '4', label:'Quinta-feira' },
-              { value: '5', label:'Sexta-feira' },
-              { value: '6', label:'Sábado' },
-            ]} 
+              { value: "0", label: "Domingo" },
+              { value: "1", label: "Segunda-feira" },
+              { value: "2", label: "Terça-feira" },
+              { value: "3", label: "Quarta-feira" },
+              { value: "4", label: "Quinta-feira" },
+              { value: "5", label: "Sexta-feira" },
+              { value: "6", label: "Sábado" },
+            ]}
           />
 
-          <Input 
+          <Input
             name="time"
             type="time"
             label="Hora"
             value={time}
-            onChange={e => { 
-              setTime(e.target.value)
-            }} 
+            onChange={(e) => {
+              setTime(e.target.value);
+            }}
           />
 
           <button>Buscar</button>
@@ -81,7 +85,7 @@ function TeacherList() {
 
       <main className="main-teacher">
         {teachers.map((teacher: Teacher) => {
-          return <TeacherItem key={teacher.id} teacher={teacher} />
+          return <TeacherItem key={teacher.id} teacher={teacher} />;
         })}
       </main>
     </div>

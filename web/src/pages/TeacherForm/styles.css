@@ -48,7 +48,7 @@
 }
 
 #page-teacher-form main fieldset legend button:hover {
-  color: var(--color-primary-dark)
+  color: var(--color-primary-dark);
 }
 
 #page-teacher-form main fieldset .input-block + .textarea-block,
@@ -57,7 +57,7 @@
 }
 
 #page-teacher-form main label {
-  color: var(--color-text-component)
+  color: var(--color-text-component);
 }
 
 #page-teacher-form main footer {
@@ -73,7 +73,7 @@
   justify-content: center;
   font-size: 1.4rem;
   line-height: 2.4rem;
-  color: var(--color-text-complement)
+  color: var(--color-text-complement);
 }
 
 #page-teacher-form main footer p img {
@@ -125,7 +125,7 @@
   }
 
   #page-teacher-form main footer {
-    padding: 4.0rem 6.4rem;
+    padding: 4rem 6.4rem;
     display: flex;
     align-items: center;
     justify-content: center;

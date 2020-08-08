@@ -13,14 +13,14 @@ import api from "../../services/api";
 
 function Landing() {
   const { navigate } = useNavigation();
-  const [totalConnections, setTotalConnections] = useState(0)
+  const [totalConnections, setTotalConnections] = useState(0);
 
   useEffect(() => {
-    api.get('connections').then(response => {
-      const { total } = response.data
-      setTotalConnections(total)
-    })
-  }, [])
+    api.get("connections").then((response) => {
+      const { total } = response.data;
+      setTotalConnections(total);
+    });
+  }, []);
 
   function handleNavigateToGiveClassesPage() {
     navigate("GiveClasses");
@@ -60,7 +60,8 @@ function Landing() {
       </View>
 
       <Text style={styles.totalConnections}>
-        Total de {totalConnections} conexões já realizadas <Image source={heartIcon} />
+        Total de {totalConnections} conexões já realizadas{" "}
+        <Image source={heartIcon} />
       </Text>
     </View>
   );

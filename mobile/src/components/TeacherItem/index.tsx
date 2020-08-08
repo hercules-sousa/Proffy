@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Image, Text, Linking, AsyncStorage } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
-import AsynStorage from '@react-native-community/async-storage'
+import AsynStorage from "@react-native-community/async-storage";
 
 import heartOutlineIcon from "../../assets/images/icons/heart-outline.png";
 import unfavoriteIcon from "../../assets/images/icons/unfavorite.png";
@@ -11,53 +11,53 @@ import styles from "./styles";
 import api from "../../services/api";
 
 export interface Teacher {
-  avatar: string
-  bio: string
-  cost: number
-  id: number
-  name: string
-  subject: string
-  whatsapp: string
+  avatar: string;
+  bio: string;
+  cost: number;
+  id: number;
+  name: string;
+  subject: string;
+  whatsapp: string;
 }
 
 interface TeacherItemProps {
-  teacher: Teacher
-  favorited: boolean
+  teacher: Teacher;
+  favorited: boolean;
 }
 
 const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
-  const [isFavorited, setIsFavorited] = useState(favorited)
+  const [isFavorited, setIsFavorited] = useState(favorited);
   function handleLinkToWhatsapp() {
-    api.post('connections', {
+    api.post("connections", {
       user_id: teacher.id,
-    })
-    Linking.openURL(`whatsapp://send?phone=${teacher.whatsapp}`)
+    });
+    Linking.openURL(`whatsapp://send?phone=${teacher.whatsapp}`);
   }
 
   async function handleToggleFavorite() {
-    const favorites = await AsyncStorage.getItem('favorites')
-    
-    let favoritesArray = []
-      
+    const favorites = await AsyncStorage.getItem("favorites");
+
+    let favoritesArray = [];
+
     if (favorites) {
-      favoritesArray = JSON.parse(favorites)
+      favoritesArray = JSON.parse(favorites);
     }
 
     if (isFavorited) {
       const favoriteIndex = favoritesArray.findIndex((teacherItem: Teacher) => {
-        return teacherItem.id === teacher.id
-      })
+        return teacherItem.id === teacher.id;
+      });
 
-      favoritesArray.splice(favoriteIndex, 1)
+      favoritesArray.splice(favoriteIndex, 1);
 
-      setIsFavorited(false)
+      setIsFavorited(false);
     } else {
-      favoritesArray.push(teacher)
+      favoritesArray.push(teacher);
 
-      setIsFavorited(true)
+      setIsFavorited(true);
     }
 
-    await AsyncStorage.setItem('favorites', JSON.stringify(favoritesArray))
+    await AsyncStorage.setItem("favorites", JSON.stringify(favoritesArray));
   }
 
   return (
@@ -75,9 +75,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
           <Text style={styles.subject}>{teacher.subject}</Text>
         </View>
       </View>
-      <Text style={styles.bio}>
-        {teacher.bio}
-      </Text>
+      <Text style={styles.bio}>{teacher.bio}</Text>
 
       <View style={styles.footer}>
         <Text style={styles.price}>
@@ -86,20 +84,21 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
         </Text>
 
         <View style={styles.buttonsContainer}>
-          <RectButton 
+          <RectButton
             onPress={handleToggleFavorite}
-            style={[
-              styles.favoriteButton, 
-              isFavorited? styles.favorited : {}
-            ]}
+            style={[styles.favoriteButton, isFavorited ? styles.favorited : {}]}
           >
-            {isFavorited 
-              ? <Image source={unfavoriteIcon} /> 
-              : <Image source={heartOutlineIcon} 
-            />}
+            {isFavorited ? (
+              <Image source={unfavoriteIcon} />
+            ) : (
+              <Image source={heartOutlineIcon} />
+            )}
           </RectButton>
 
-          <RectButton onPress={handleLinkToWhatsapp} style={styles.contactButton}>
+          <RectButton
+            onPress={handleLinkToWhatsapp}
+            style={styles.contactButton}
+          >
             <Image source={whatsappIcon} />
             <Text style={styles.contactButtonText}>Entrar em contato</Text>
           </RectButton>

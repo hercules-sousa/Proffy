@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { View, ScrollView, Text, TextInput } from "react-native";
 import { BorderlessButton, RectButton } from "react-native-gesture-handler";
-import { Feather } from '@expo/vector-icons'
-import AsyncStorage from '@react-native-community/async-storage'
+import { Feather } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import PageHeader from "../../components/PageHeader";
 import TeacherItem, { Teacher } from "../../components/TeacherItem";
@@ -12,53 +12,55 @@ import styles from "./styles";
 
 function TeacherList() {
   const [isFiltersVisible, setIsFilterVisible] = useState(false);
-  const [favorites, setFavorites] = useState<number[]>([])
-  const [teachers, setTeachers] = useState([])
+  const [favorites, setFavorites] = useState<number[]>([]);
+  const [teachers, setTeachers] = useState([]);
 
-  const [subject, setSubject] = useState('')
-  const [week_day, setWeekDay] = useState('')
-  const [time, setTime] = useState('')
+  const [subject, setSubject] = useState("");
+  const [week_day, setWeekDay] = useState("");
+  const [time, setTime] = useState("");
 
   function loadFavorites() {
-    AsyncStorage.getItem('favorites').then(response => {
+    AsyncStorage.getItem("favorites").then((response) => {
       if (response) {
-        const favoritedTeachers = JSON.parse(response)
-        const favoritedTeachersIds = favoritedTeachers.map((teacher: Teacher) => {
-          return teacher.id
-        })
-        setFavorites(favoritedTeachersIds)
+        const favoritedTeachers = JSON.parse(response);
+        const favoritedTeachersIds = favoritedTeachers.map(
+          (teacher: Teacher) => {
+            return teacher.id;
+          }
+        );
+        setFavorites(favoritedTeachersIds);
       }
-    })
+    });
   }
 
   function handleToggleFiltersVisible() {
-    setIsFilterVisible(!isFiltersVisible)
+    setIsFilterVisible(!isFiltersVisible);
   }
 
   async function handleFiltersSubmit() {
-    loadFavorites()
+    loadFavorites();
 
-    const response = await api.get('classes', {
+    const response = await api.get("classes", {
       params: {
         subject,
         week_day,
         time,
-      }
-    })
+      },
+    });
 
-    setIsFilterVisible(false)
-    setTeachers(response.data)
+    setIsFilterVisible(false);
+    setTeachers(response.data);
   }
 
   return (
     <View style={styles.container}>
-      <PageHeader 
-        title="Proffys disponíveis" 
-        headerRight={(
+      <PageHeader
+        title="Proffys disponíveis"
+        headerRight={
           <BorderlessButton onPress={handleToggleFiltersVisible}>
-            <Feather name='filter' size={20} color='#fff' />
+            <Feather name="filter" size={20} color="#fff" />
           </BorderlessButton>
-        )}
+        }
       >
         {isFiltersVisible && (
           <View style={styles.searchForm}>
@@ -67,7 +69,7 @@ function TeacherList() {
               placeholder="Qual a matéria?"
               style={styles.input}
               value={subject}
-              onChangeText={text => setSubject(text)}
+              onChangeText={(text) => setSubject(text)}
               placeholderTextColor="#c1bccc"
             />
 
@@ -78,7 +80,7 @@ function TeacherList() {
                   placeholder="Qual o dia?"
                   style={styles.input}
                   value={week_day}
-                  onChangeText={text => setWeekDay(text)}
+                  onChangeText={(text) => setWeekDay(text)}
                   placeholderTextColor="#c1bccc"
                 />
               </View>
@@ -89,13 +91,16 @@ function TeacherList() {
                   placeholder="Qual horário?"
                   style={styles.input}
                   value={time}
-                  onChangeText={text => setTime(text)}
+                  onChangeText={(text) => setTime(text)}
                   placeholderTextColor="#c1bccc"
                 />
               </View>
             </View>
-            
-            <RectButton onPress={handleFiltersSubmit} style={styles.submitButton}>
+
+            <RectButton
+              onPress={handleFiltersSubmit}
+              style={styles.submitButton}
+            >
               <Text style={styles.submitButtonText}>Filtrar</Text>
             </RectButton>
           </View>
@@ -110,7 +115,7 @@ function TeacherList() {
         }}
       >
         {teachers.map((teacher: Teacher) => (
-          <TeacherItem 
+          <TeacherItem
             key={teacher.id}
             teacher={teacher}
             favorited={favorites.includes(teacher.id)}
