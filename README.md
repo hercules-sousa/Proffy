@@ -12,6 +12,14 @@
 
 ---
 
+<p>
+  The purpose of this project is to create an online platform to connect students and teachers in an easy and fast way, the teachers will post their price/hours and students can reach them by their whatsapp contact.Besides, students can classify teachers in their favorites making it easier to find.
+  <br />
+  The way the classes will be taught is of concern of the teacher and the student, giving them this autonomy makes the platform flexible and more reachable.
+</p>
+
+---
+
 # :computer: Web
 
 <table style="width:100%">
@@ -103,4 +111,4 @@ $ yarn install
 $ yarn start
 ```
 
-After read the QRCode with [expo](https://play.google.com/store/apps/details?id=host.exp.exponent) app or run on an emulator.
+Afterwards, read the QRCode with [expo](https://play.google.com/store/apps/details?id=host.exp.exponent) app or run on an emulator.
